@@ -1,9 +1,10 @@
 var pcap = require('pcap'),
 	util = require('util'),
-    tcp_tracker = new pcap.TCPTracker(),
-    device = 'lo',
-    pcap_session = pcap.createSession(device, 'ip proto \\tcp'),
-    parser = require('http-string-parser'),
+  appServer = require('./lib/server'),
+  tcp_tracker = new pcap.TCPTracker(),
+  device = 'lo',
+  pcap_session = pcap.createSession(device, 'ip proto \\tcp'),
+  parser = require('http-string-parser'),
 
     app = require('http').createServer(handler),
 	io = require('socket.io')(app),
@@ -44,38 +45,4 @@ tcp_tracker.on('session', function (session) {
 pcap_session.on('packet', function (raw_packet) {
     var packet = pcap.decode.packet(raw_packet);
     tcp_tracker.track_packet(packet);
-});
-
-
-
-
-
-////
-app.listen(80);
-
-function handler (req, res) {
-  fs.readFile(__dirname + '/web/index.html',
-  function (err, data) {
-    if (err) {
-      res.writeHead(500);
-      return res.end('Error loading index.html');
-    }
-
-    res.writeHead(200, {
-    	'Content-Type': 'text/html'
-    });
-    res.end(data);
-  });
-}
-
-io.on('connection', function (socket) {
-
-	tcpEventEmitter.on('onData', function(data) {
-		socket.emit('news', data);
-	});
-
-  
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
 });
