@@ -1,9 +1,7 @@
-HELLOW
-<script src="/socket.io/socket.io.js"></script>
+<script src="/bower_components/socket.io-client/socket.io.js"></script>
 <script>
-  var socket = io('http://localhost');
-  socket.on('news', function (data) {
+  var socket = io('http://localhost:3000');
+  socket.on('send_session', function (data) {
     console.log(data);
-    socket.emit('my other event', { my: 'data' });
   });
 </script>
