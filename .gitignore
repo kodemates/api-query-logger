@@ -81,3 +81,4 @@ node_modules
 
 #compiled files
 web/dist
+web/css/semantic

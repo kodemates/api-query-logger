@@ -6,7 +6,7 @@ import Router from 'react-router';
 import {NotFoundRoute, Route, Redirect, DefaultRoute} from 'react-router';
 import alt from './lib/alt';
 import App from './components/App';
-import Headers from './components/Headers';
+import Headers from './components/Header/Headers';
 
 let routes = (
     <Route handler={App} path="/">
